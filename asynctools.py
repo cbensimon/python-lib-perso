@@ -2,7 +2,7 @@
 """
 Created on Sun Mar  6 15:41:51 2016
 
-@author: charles
+@author: charles.bensimon
 """
 
 from threading import Thread as Th
