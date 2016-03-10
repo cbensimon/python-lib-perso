@@ -6,7 +6,7 @@ Created on Thu Feb 18 14:53:04 2016
 """
 
 import numpy as np
-from scipy.sparse import csr_matrix
+from scipy.sparse import lil_matrix
 
 def string2trigram(s):
     size = len(s)
@@ -19,4 +19,4 @@ def string2trigram(s):
     
     tab3G = tab3G.sum(axis=1)
     
-    return csr_matrix(np.bincount(tab3G, minlength=128**3)).astype(np.uint32)
+    return lil_matrix(np.bincount(tab3G, minlength=128**3)).astype(np.uint32)
