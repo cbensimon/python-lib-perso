@@ -23,7 +23,9 @@ def load_usps(filename='/users/Etu0/3000120/Master/ARF/TME2/2015_tme3_usps_train
     return tmp[:, 1:], tmp[:, 0].astype(int)
 
 def show_image(v):
-    s = int(np.sqrt(v.shape[0]))
+    shapes = np.array(list(v.shape))
+    total = shapes.prod()
+    s = int(np.sqrt(total))
     plt.imshow(v.reshape((s,s)), cmap=cm.gray_r)
     
 def separe_train_test(datay, ratio):
