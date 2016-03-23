@@ -9,11 +9,14 @@ from collections import Counter
 
 Fonction = namedtuple("Fonction", ["f", "grad", "dim"])
 
-def print_percent(n, N):
+def print_percent(n, N, callback=None):
     if N > 100:
         if n%(round(N/100.0)) != 0:
             return
-    print str((n*100)/N) + '\t%'
+    result = str((n*100)/N) + ' %'
+    if callback:
+        result += ' : ' + str(callback())
+    print result
 
 def load_usps(filename='/users/Etu0/3000120/Master/ARF/TME2/2015_tme3_usps_train.txt'):
     with open(filename, "r") as f:
