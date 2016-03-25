@@ -42,7 +42,6 @@ def separe_train_test(datay, ratio, balanced=False):
         mClass, mCount = classes.most_common()[0]
         mCount_train = int(round(mCount * ratio))
         mCount_test = mCount - mCount_train
-        print mCount_train, mCount_test
         for c in classes:
             indexes = np.where(datay == c)[0]
             random.shuffle(indexes)
