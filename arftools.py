@@ -31,16 +31,43 @@ def show_image(v):
     s = int(np.sqrt(total))
     plt.imshow(v.reshape((s,s)), cmap=cm.gray_r)
     
-def separe_train_test(datay, ratio):
+def separe_train_test(datay, ratio, balanced=False):
+    
     classes = Counter(datay)
     train = np.zeros(0, dtype=int)
     test = np.zeros(0, dtype=int)
-    for c in classes:
-        indexes = np.where(datay == c)[0]
-        random.shuffle(indexes)
-        limit = int(round(len(indexes)*ratio))
-        train = np.append(train, indexes[:limit])
-        test = np.append(test, indexes[limit:])
+    
+    if balanced:
+        
+        mClass, mCount = classes.most_common()[0]
+        mCount_train = int(round(mCount * ratio))
+        mCount_test = mCount - mCount_train
+        print mCount_train, mCount_test
+        for c in classes:
+            indexes = np.where(datay == c)[0]
+            random.shuffle(indexes)
+            if len(indexes) < mCount:
+                limit = int(round(len(indexes)*ratio))
+                cTrain = indexes[:limit]
+                cTest = indexes[limit:]
+                nRepeats_train = int(np.ceil(mCount_train/float(len(cTrain))))
+                nRepeats_test = int(np.ceil(mCount_train/float(len(cTest))))
+                cTrain = np.tile(cTrain, nRepeats_train)
+                cTest = np.tile(cTest, nRepeats_test)
+                train = np.append(train, cTrain[:mCount_train])
+                test = np.append(test, cTest[:mCount_test])
+            else:
+                train = np.append(train, indexes[:mCount_train])
+                test = np.append(test, indexes[mCount_train:])
+            
+    else:
+        
+        for c in classes:
+            indexes = np.where(datay == c)[0]
+            random.shuffle(indexes)
+            limit = int(round(len(indexes)*ratio))
+            train = np.append(train, indexes[:limit])
+            test = np.append(test, indexes[limit:])
         
     return train, test
 
