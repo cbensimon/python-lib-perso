@@ -16,7 +16,7 @@ def print_percent(n, N, callback=None):
     result = str((n*100)/N) + ' %'
     if callback:
         result += ' : ' + str(callback())
-    print result
+    print(result)
 
 def load_usps(filename='/users/Etu0/3000120/Master/ARF/TME2/2015_tme3_usps_train.txt'):
     with open(filename, "r") as f:
