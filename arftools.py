@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import sys
 import numpy as np
 from numpy import random
 import matplotlib.pyplot as plt
@@ -11,12 +12,15 @@ Fonction = namedtuple("Fonction", ["f", "grad", "dim"])
 
 def print_percent(n, N, callback=None):
     if N > 100:
-        if n%(round(N/100.0)) != 0:
+        if n != 0 and (n+1)%(int(N/100)) != 0:
             return
-    result = str((n*100)/N) + ' %'
+    result = str(int(round((n*100.0)/N))) + ' %'
     if callback:
         result += ' : ' + str(callback())
-    print(result)
+        print(result)
+    else:
+        sys.stdout.write('\r'+ result)
+        sys.stdout.flush()
 
 def load_usps(filename='/users/Etu0/3000120/Master/ARF/TME2/2015_tme3_usps_train.txt'):
     with open(filename, "r") as f:
