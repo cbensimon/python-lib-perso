@@ -14,12 +14,15 @@ def print_percent(n, N, callback=None):
     if N > 100:
         if n != 0 and (n+1)%(int(N/100)) != 0:
             return
-    result = str(int(round((n*100.0)/N))) + ' %'
+    percentage = int(round((n*100.0)/N))
+    result = str(percentage) +' %'
     if callback:
         result += ' : ' + str(callback())
         print(result)
     else:
         sys.stdout.write('\r'+ result)
+        if percentage == 100:
+            sys.stdout.write('\n')
         sys.stdout.flush()
 
 def load_usps(filename='/users/Etu0/3000120/Master/ARF/TME2/2015_tme3_usps_train.txt'):
